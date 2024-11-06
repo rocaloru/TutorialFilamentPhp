@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CityResource\Pages;
-use App\Filament\Resources\CityResource\RelationManagers;
-use App\Models\City;
+use App\Filament\Resources\DepartamentResource\Pages;
+use App\Filament\Resources\DepartamentResource\RelationManagers;
+use App\Models\Departament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,22 +13,20 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CityResource extends Resource
+class DepartamentResource extends Resource
 {
-    protected static ?string $model = City::class;
+    protected static ?string $model = Departament::class;
+
+    protected static ?string $navigationIcon = 'heroicon-m-building-office';
     protected static ?string $navigationGroup=' System Management';
-    protected static ?int $navigationSort=5;
-    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
+    protected static ?int $navigationSort=7;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->required(),
-                Forms\Components\TextInput::make('state_id')
                     ->required()
-                    ->numeric(),
             ]);
     }
 
@@ -37,10 +35,6 @@ class CityResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('state_id')
-                    ->numeric()
-                    ->sortable(),
             ])
             ->filters([
                 //
@@ -65,9 +59,9 @@ class CityResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCities::route('/'),
-            'create' => Pages\CreateCity::route('/create'),
-            'edit' => Pages\EditCity::route('/{record}/edit'),
+            'index' => Pages\ListDepartaments::route('/'),
+            'create' => Pages\CreateDepartament::route('/create'),
+            'edit' => Pages\EditDepartament::route('/{record}/edit'),
         ];
     }
 }
